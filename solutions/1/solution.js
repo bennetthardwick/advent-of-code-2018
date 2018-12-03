@@ -5,7 +5,7 @@ const input = fs.readFileSync('./input', { encoding: 'utf8' });
 
 // Use function constructor because gotta go fast
 console.log('Part one!');
-console.log(new Function(`return ${input.split('\n').join(' ')}`)() + '\n');
+console.log(new Function(`return ${input}`)() + '\n');
 
 console.log('Part two!');
 
