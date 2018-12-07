@@ -4,29 +4,11 @@ use std::collections::HashMap;
 
 fn main() {
     let mut file = File::open("./input").unwrap();
-    let mut contents = String::new();
-    file.read_to_string(&mut contents).unwrap();
+    let mut input = String::new();
+    file.read_to_string(&mut input).unwrap();
 
-    let mut twos = 0;
-    let mut threes = 0;
-
-    for id in contents.split('\n') {
-        let (add_twos, add_threes) = count_doubles_and_triples(id);
-        if add_twos {
-            twos += 1;
-        }
-        if add_threes {
-            threes += 1;
-        }
-    }
-
-    println!("\nPart 1!");
-    println!("{}", twos * threes);
-
-
-    println!("\nPart 2!");
-
-    println!("{}", scan_strings_for_matches(contents.split('\n').collect()).unwrap().iter().collect::<String>());
+    part_one(&input);
+    part_two(&input);
 }
 
 fn count_doubles_and_triples(id: &str) -> (bool, bool) {
@@ -49,6 +31,33 @@ fn count_doubles_and_triples(id: &str) -> (bool, bool) {
     }
 
     (twos, threes)
+}
+
+fn part_one(input: &String) {
+    let mut twos = 0;
+    let mut threes = 0;
+
+    for id in input.split('\n') {
+        let (add_twos, add_threes) = count_doubles_and_triples(id);
+        if add_twos {
+            twos += 1;
+        }
+        if add_threes {
+            threes += 1;
+        }
+    }
+
+    println!("\nPart 1!");
+    println!("{}", twos * threes);
+}
+
+fn part_two(input: &String) {
+    let ids = input.split('\n').collect();
+    let matches = scan_strings_for_matches(ids).unwrap();
+    let matches_string = matches.iter().collect::<String>();
+
+    println!("\nPart 2!");
+    println!("{}", matches_string);
 }
 
 fn scan_strings_for_matches(ids: Vec<&str>) -> Option<Vec<char>> {
